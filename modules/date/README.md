@@ -80,30 +80,30 @@ and reading the ISO weekday of a date object (`MalagasyDate->isoWeekday()` in PH
 
 ## Telling the time
 
-7. **Time** (`spellTime`): `amin'ny`, the hour on a 12-hour clock in words, the minutes, then the
-   part of the day: `14:30` → `amin'ny roa sy sasany tolakandro`. Input is `HH:MM` text (00:00
-   to 23:59, the hour may have one digit), `{ hour, minute }`, or a port's native time. Other
-   text is `INVALID_FORMAT`, an hour outside 0–23 or a minute outside 0–59 `OUT_OF_RANGE`.
+**Rule 7.** **Time** (`spellTime`): `amin'ny`, the hour on a 12-hour clock in words, the minutes, then the
+part of the day: `14:30` → `amin'ny roa sy sasany tolakandro`. Input is `HH:MM` text (00:00
+to 23:59, the hour may have one digit), `{ hour, minute }`, or a port's native time. Other
+text is `INVALID_FORMAT`, an hour outside 0–23 or a minute outside 0–59 `OUT_OF_RANGE`.
 
-   | Minutes | Words                             | `2:mm`                                                                                                                     |
-   | ------- | --------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-   | 0       | (none)                            | `amin'ny roa`                                                                                                              |
-   | 1–19    | `sy` and the minutes              | `2:05` → `amin'ny roa sy dimy`                                                                                             |
-   | 15      | `sy fahefany` (a quarter)         | `amin'ny roa sy fahefany`                                                                                                  |
-   | 20      | `sy fahatelony` (a third)         | `amin'ny roa sy fahatelony`                                                                                                |
-   | 21–29   | `sy sasany latsaka` 30 − minutes  | `2:25` → `amin'ny roa sy sasany latsaka dimy`                                                                              |
-   | 30      | `sy sasany` (a half)              | `amin'ny roa sy sasany`                                                                                                    |
-   | 31–39   | `sy sasany mahery` minutes − 30   | `2:35` → `amin'ny roa sy sasany mahery dimy`                                                                               |
-   | 40–59   | next hour, `latsaka` 60 − minutes | `2:40` → `amin'ny telo latsaka fahatelony`, `2:45` → `amin'ny telo latsaka fahefany`, `2:55` → `amin'ny telo latsaka dimy` |
+| Minutes | Words                             | `2:mm`                                                                                                                     |
+| ------- | --------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| 0       | (none)                            | `amin'ny roa`                                                                                                              |
+| 1–19    | `sy` and the minutes              | `2:05` → `amin'ny roa sy dimy`                                                                                             |
+| 15      | `sy fahefany` (a quarter)         | `amin'ny roa sy fahefany`                                                                                                  |
+| 20      | `sy fahatelony` (a third)         | `amin'ny roa sy fahatelony`                                                                                                |
+| 21–29   | `sy sasany latsaka` 30 − minutes  | `2:25` → `amin'ny roa sy sasany latsaka dimy`                                                                              |
+| 30      | `sy sasany` (a half)              | `amin'ny roa sy sasany`                                                                                                    |
+| 31–39   | `sy sasany mahery` minutes − 30   | `2:35` → `amin'ny roa sy sasany mahery dimy`                                                                               |
+| 40–59   | next hour, `latsaka` 60 − minutes | `2:40` → `amin'ny telo latsaka fahatelony`, `2:45` → `amin'ny telo latsaka fahefany`, `2:55` → `amin'ny telo latsaka dimy` |
 
-   The part of the day is that of the hour the time names, as in French: `maraina` 1–11,
-   `atoandro` 12, `tolakandro` 13–17, `hariva` 18–23, `alina` 0 (said `roa ambin'ny folo`).
-   `11:45` → `amin'ny roa ambin'ny folo latsaka fahefany atoandro`.
+The part of the day is that of the hour the time names, as in French: `maraina` 1–11,
+`atoandro` 12, `tolakandro` 13–17, `hariva` 18–23, `alina` 0 (said `roa ambin'ny folo`).
+`11:45` → `amin'ny roa ambin'ny folo latsaka fahefany atoandro`.
 
-8. **Reading the time** (`parseTime`): the words `spellTime` says, in any case and spacing,
-   with or without `amin'ny`, back to `{ hour, minute }`. Every time of day has its own words.
-   Anything else (no part of the day, other words, text over 128 characters) is
-   `INVALID_FORMAT`.
+**Rule 8.** **Reading the time** (`parseTime`): the words `spellTime` says, in any case and spacing,
+with or without `amin'ny`, back to `{ hour, minute }`. Every time of day has its own words.
+Anything else (no part of the day, other words, text over 128 characters) is
+`INVALID_FORMAT`.
 
 ## Sources
 

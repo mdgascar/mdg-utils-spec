@@ -4,7 +4,19 @@
   "title": "Malagasy calendar names and date patterns",
   "type": "object",
   "additionalProperties": false,
-  "required": ["months", "monthsSource", "weekdays", "weekdaysSource", "styles", "limits"],
+  "required": [
+    "months",
+    "monthsSource",
+    "weekdays",
+    "weekdaysSource",
+    "styles",
+    "limits",
+    "time",
+    "fractions",
+    "fractionsSource",
+    "dayParts",
+    "dayPartsSource"
+  ],
   "$defs": {
     "name": {
       "type": "string",
@@ -108,7 +120,7 @@
     "limits": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["minYear", "maxYear", "maxReadLength"],
+      "required": ["minYear", "maxYear", "maxReadLength", "maxTimeReadLength"],
       "properties": {
         "minYear": {
           "type": "integer",
@@ -121,8 +133,93 @@
         "maxReadLength": {
           "type": "integer",
           "minimum": 1
+        },
+        "maxTimeReadLength": {
+          "type": "integer",
+          "minimum": 1
         }
       }
+    },
+    "time": {
+      "allOf": [
+        {
+          "$ref": "../../schemas/source.schema.json"
+        }
+      ],
+      "type": "object",
+      "unevaluatedProperties": false,
+      "required": ["prefix", "after", "before", "more"],
+      "properties": {
+        "prefix": {
+          "type": "string",
+          "pattern": "^[a-z' ]+$"
+        },
+        "after": {
+          "type": "string",
+          "pattern": "^[a-z' ]+$"
+        },
+        "before": {
+          "type": "string",
+          "pattern": "^[a-z' ]+$"
+        },
+        "more": {
+          "type": "string",
+          "pattern": "^[a-z' ]+$"
+        },
+        "source": true,
+        "checked": true
+      }
+    },
+    "fractions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["minutes", "word"],
+        "properties": {
+          "minutes": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 30
+          },
+          "word": {
+            "type": "string",
+            "pattern": "^[a-z' ]+$"
+          }
+        }
+      }
+    },
+    "fractionsSource": {
+      "$ref": "../../schemas/source.schema.json"
+    },
+    "dayParts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["from", "to", "word"],
+        "properties": {
+          "from": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 23
+          },
+          "to": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 23
+          },
+          "word": {
+            "type": "string",
+            "pattern": "^[a-z' ]+$"
+          }
+        }
+      }
+    },
+    "dayPartsSource": {
+      "$ref": "../../schemas/source.schema.json"
     }
   }
 }

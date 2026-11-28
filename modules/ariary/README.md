@@ -38,16 +38,18 @@ nothing.
    grouped, rounded or padded: `1500.5` → `Ar 1 500,5`, `0.25` → `Ar 0,25`.
 3. **Options** (`formatAriary` and `formatFmg`):
 
-   | Option           | Values                            | Example for 1500.5 |
-   | ---------------- | --------------------------------- | ------------------ |
-   | `grouping`       | `space` (default), `dot`, `comma` | `Ar 1.500,5`       |
-   | `decimal`        | `comma` (default), `dot`          | `Ar 1 500.5`       |
-   | `symbolPosition` | `before` (default), `after`       | `1 500,5 Ar`       |
+   | Option            | Values                            | Example for 1500.5 |
+   | ----------------- | --------------------------------- | ------------------ |
+   | `grouping`        | `space` (default), `dot`, `comma` | `Ar 1.500,5`       |
+   | `decimal`         | `comma` (default), `dot`          | `Ar 1 500.5`       |
+   | `symbolPosition`  | `before` (default), `after`       | `1 500,5 Ar`       |
+   | `currencyDisplay` | `symbol` (default), `code`        | `MGA 1 500,5`      |
 
    The defaults are the Malagasy way. With `dot` grouping, decimals still follow a comma:
    `1234567.89` → `Ar 1.234.567,89`. **A comma is never a thousand separator in Madagascar**:
    `grouping: 'comma'` and `decimal: 'dot'` exist only for text in another convention
-   (`Ar 1,500.5`). `grouping` and `decimal` must differ. Any other value, or the same character
+   (`Ar 1,500.5`). `grouping` and `decimal` must differ. `currencyDisplay: 'code'` writes the
+   ISO 4217 code instead of the symbol: `MGA` for ariary, `MGF` for old francs. Any other value, or the same character
    for both, is `INVALID_TYPE`.
 
 4. **Reading text** (`parseAriary`, `safeParseAriary`, `tryParseAriary`), with the `grouping` and

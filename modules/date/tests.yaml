@@ -325,3 +325,122 @@
   input: '5 Mey 12'
   args: ['long']
   expected: { year: 12, month: 5, day: 5 }
+# spellTime (rule 7): a time of day said in Malagasy.
+- fn: spellTime
+  input: '14:00'
+  expected: "amin'ny roa tolakandro"
+- fn: spellTime
+  input: '02:00'
+  expected: "amin'ny roa maraina"
+  note: "phrasebook: 'Amin'ny roa'"
+- fn: spellTime
+  input: '02:05'
+  expected: "amin'ny roa sy dimy maraina"
+  note: "phrasebook: 'Amin'ny roa sy dimy'"
+- fn: spellTime
+  input: '02:10'
+  expected: "amin'ny roa sy folo maraina"
+- fn: spellTime
+  input: '02:15'
+  expected: "amin'ny roa sy fahefany maraina"
+- fn: spellTime
+  input: '02:20'
+  expected: "amin'ny roa sy fahatelony maraina"
+- fn: spellTime
+  input: '02:25'
+  expected: "amin'ny roa sy sasany latsaka dimy maraina"
+- fn: spellTime
+  input: '02:30'
+  expected: "amin'ny roa sy sasany maraina"
+  note: "phrasebook: 'Amin'ny roa sy sasany'"
+- fn: spellTime
+  input: '02:35'
+  expected: "amin'ny roa sy sasany mahery dimy maraina"
+- fn: spellTime
+  input: '02:40'
+  expected: "amin'ny telo latsaka fahatelony maraina"
+- fn: spellTime
+  input: '02:45'
+  expected: "amin'ny telo latsaka fahefany maraina"
+  note: "phrasebook: 'Amin'ny telo latsaka fahefany'"
+- fn: spellTime
+  input: '02:50'
+  expected: "amin'ny telo latsaka folo maraina"
+- fn: spellTime
+  input: '02:55'
+  expected: "amin'ny telo latsaka dimy maraina"
+  note: "phrasebook: 'Amin'ny telo latsaka dimy'"
+- fn: spellTime
+  input: '10:00'
+  expected: "amin'ny folo maraina"
+  note: "dictionary entry maraina: 'Amin' ny folo maraina'"
+- fn: spellTime
+  input: '17:00'
+  expected: "amin'ny dimy tolakandro"
+- fn: spellTime
+  input: '18:15'
+  expected: "amin'ny enina sy fahefany hariva"
+- fn: spellTime
+  input: '12:00'
+  expected: "amin'ny roa ambin'ny folo atoandro"
+- fn: spellTime
+  input: '11:45'
+  expected: "amin'ny roa ambin'ny folo latsaka fahefany atoandro"
+  note: 'the part of the day follows the hour the time names'
+- fn: spellTime
+  input: '00:00'
+  expected: "amin'ny roa ambin'ny folo alina"
+- fn: spellTime
+  input: '23:45'
+  expected: "amin'ny roa ambin'ny folo latsaka fahefany alina"
+- fn: spellTime
+  input: '13:07'
+  expected: "amin'ny iray sy fito tolakandro"
+  note: 'other minutes are counted'
+- fn: spellTime
+  input: { hour: 21, minute: 30 }
+  expected: "amin'ny sivy sy sasany hariva"
+- fn: spellTime
+  input: '7:05'
+  expected: "amin'ny fito sy dimy maraina"
+  note: 'a one-digit hour'
+- fn: spellTime
+  input: '24:00'
+  error: INVALID_FORMAT
+- fn: spellTime
+  input: '14h30'
+  error: INVALID_FORMAT
+- fn: spellTime
+  input: { hour: 24, minute: 0 }
+  error: OUT_OF_RANGE
+- fn: spellTime
+  input: { hour: 1.5, minute: 0 }
+  error: INVALID_TYPE
+- fn: spellTime
+  input: 1430
+  error: INVALID_TYPE
+# parseTime: the words back into hour and minute.
+- fn: parseTime
+  input: "amin'ny roa sy sasany tolakandro"
+  expected: { hour: 14, minute: 30 }
+- fn: parseTime
+  input: "Amin'ny  telo latsaka fahefany maraina"
+  expected: { hour: 2, minute: 45 }
+  note: 'case and spacing do not matter'
+- fn: parseTime
+  input: 'fito maraina'
+  expected: { hour: 7, minute: 0 }
+  note: "amin'ny may be left out"
+- fn: parseTime
+  input: "amin'ny roa ambin'ny folo alina"
+  expected: { hour: 0, minute: 0 }
+- fn: parseTime
+  input: "amin'ny roa sy sasany"
+  error: INVALID_FORMAT
+  note: 'the part of the day is needed: 2:30 or 14:30'
+- fn: parseTime
+  input: 'two thirty'
+  error: INVALID_FORMAT
+- fn: parseTime
+  input: 230
+  error: INVALID_TYPE

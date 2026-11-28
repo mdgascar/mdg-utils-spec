@@ -494,3 +494,25 @@
   input: 1500
   args: [{ 'as': 'decimal' }]
   error: INVALID_TYPE
+- fn: formatAriary
+  input: 1500
+  args: [{ 'currencyDisplay': 'code' }]
+  expected: "MGA\u00a01\u00a0500"
+  note: 'the ISO 4217 code instead of the symbol'
+- fn: formatAriary
+  input: 1500.5
+  args: [{ 'currencyDisplay': 'code', 'symbolPosition': 'after' }]
+  expected: "1\u00a0500,5\u00a0MGA"
+- fn: formatAriary
+  input: 1500
+  args: [{ 'currencyDisplay': 'symbol' }]
+  expected: "Ar\u00a01\u00a0500"
+  note: 'the default, named'
+- fn: formatAriary
+  input: 1500
+  args: [{ 'currencyDisplay': 'name' }]
+  error: INVALID_TYPE
+- fn: formatFmg
+  input: 7500
+  args: [{ 'currencyDisplay': 'code' }]
+  expected: "MGF\u00a07\u00a0500"

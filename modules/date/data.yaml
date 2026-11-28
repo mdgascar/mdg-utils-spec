@@ -50,9 +50,41 @@ styles:
     pattern: dd/MM/y
     source: https://github.com/mdgascar/mdg-utils-spec/blob/dev/modules/date/README.md#recorded-decisions
     checked: 2026-11-24
+# Telling the time (rule 7): 'amin'ny', the hour on a 12-hour clock in words, the minutes, then
+# the part of the day. 2:30 → 'amin'ny roa sy sasany', 2:45 → 'amin'ny telo latsaka fahefany'.
+time:
+  prefix: "amin'ny"
+  after: sy
+  before: latsaka
+  more: mahery
+  source: https://www.wildmadagascar.org/people/malagasy-time.html
+  checked: 2026-11-27
+# Minutes with their own word; every other minute is counted in words (rule 7).
+# 15 and 30: the phrasebook (Rasoloson, Hippocrene). 20 and 40: maintainer decision.
+fractions:
+  - { minutes: 15, word: fahefany }
+  - { minutes: 20, word: fahatelony }
+  - { minutes: 30, word: sasany }
+fractionsSource:
+  source: https://www.wildmadagascar.org/people/malagasy-time.html
+  checked: 2026-11-27
+# Parts of the day, by the hour (0–23) the time names, as in French: matin, midi,
+# après-midi, soir; minuit is the night. Names: Peace Corps Madagascar, Malagasy lessons.
+# Ranges: maintainer decision (2026-11-27).
+dayParts:
+  - { from: 0, to: 0, word: alina }
+  - { from: 1, to: 11, word: maraina }
+  - { from: 12, to: 12, word: atoandro }
+  - { from: 13, to: 17, word: tolakandro }
+  - { from: 18, to: 23, word: hariva }
+dayPartsSource:
+  source: https://files.peacecorps.gov/multimedia/audio/languagelessons/madagascar/MG_Malagasy_Language_Lessons.pdf
+  checked: 2026-11-27
 # maxReadLength: longest text parseDate reads, so a parser never scans unbounded input. The
 # longest formatted date, 'Alatsinainy 23 Septambra 2026', has 30 characters.
 limits:
   minYear: 1
   maxYear: 9999
   maxReadLength: 64
+  # Longest text parseTime reads (the longest spellTime phrase is about 70 characters).
+  maxTimeReadLength: 128
